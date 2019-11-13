@@ -23,9 +23,6 @@ class Product_Data {
     add_action( 'woocommerce_process_product_meta',
                 [$this, 'wspp_save_shipping_cost'] );
 
-    // display data
-    add_action( 'woocommerce_before_add_to_cart_button',
-                [$this, 'wspp_display_custom_field'] );
   }
 
   /**
@@ -37,10 +34,15 @@ class Product_Data {
   public function wspp_standard_shipping_field() {
      $args = array(
      'id' => 'wspp_standard_shipping_cost',
-     'label' => __( 'Standard Shipping', 'wspp' ),
+     'type' => 'number',
+     'label' => __( 'Standard Shipping Rate', 'wspp' ),
      'class' => 'wspp_standard_shipping_cost',
      'desc_tip' => true,
      'description' => __( 'Enter the standard shipping rate', 'wspp' ),
+     'custom_attributes' => [
+           'step' => 'any',
+           'min' => 0,
+       ],
      );
      woocommerce_wp_text_input( $args );
    }
@@ -58,24 +60,5 @@ class Product_Data {
       $product->save();
    }
 
-    /**
-     * Display product data in front-end
-     * @since 1.0.0
-     * @access public
-     * @return void
-    */
-   public function wspp_display_custom_field() {
-      global $post;
-      // Check for the custom field value
-      $product = wc_get_product( $post->ID );
-      $cost = $product->get_meta( 'wspp_standard_shipping_cost' );
-      if( $cost ) {
-        // Only display our field if we've got a value for the field title
-        printf(
-        '<div class="wspp-custom-field-wrapper">The Value is - %s</div>',
-        esc_html( $cost )
-        );
-      }
-   }
 
 }

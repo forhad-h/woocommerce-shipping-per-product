@@ -2,3 +2,4 @@
 
 ### reference
 - https://docs.woocommerce.com/document/create-a-plugin/
+- https://docs.woocommerce.com/document/shipping-method-api/

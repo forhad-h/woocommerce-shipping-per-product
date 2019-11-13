@@ -58,13 +58,20 @@ function wspp_shipping_method_init() {
        * @return void
       */
       public function calculate_shipping( $package = array() ) {
-        global $post;
-        $product = wc_get_product($post->ID);
-        var_dump(WC()->cart->get_cart());
+        global $woocommerce;
+        $items = $woocommerce->cart->get_cart();
+        $cost_arr = [];
+
+        foreach($items as $item => $values) {
+          $product = wc_get_product( $values[ 'data' ]->get_id() );
+          $cost = ( float ) $product->get_meta( 'wspp_standard_shipping_cost' );
+          array_push($cost_arr, $cost);
+        }
+
         $rate = [
           'id' => $this->id,
           'label' => $this->title,
-          'cost' => "99.99",
+          'cost' => max($cost_arr),
           'calc_tax' => 'per_order',
         ];
 
