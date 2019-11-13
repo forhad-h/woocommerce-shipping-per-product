@@ -11,6 +11,7 @@ class Product_Data {
    * Constructor
    * @since 1.0.0
    * @access public
+   * @return void
   */
   public function __construct() {
 
@@ -31,6 +32,7 @@ class Product_Data {
    * Add text field option in Product data panel
    * @since 1.0.0
    * @access public
+   * @return void
   */
   public function wspp_standard_shipping_field() {
      $args = array(
@@ -47,6 +49,7 @@ class Product_Data {
     * Save product data
     * @since 1.0.0
     * @access public
+    * @return void
    */
    public function wspp_save_shipping_cost( $post_id ) {
       $product = wc_get_product( $post_id );
@@ -59,6 +62,7 @@ class Product_Data {
      * Display product data in front-end
      * @since 1.0.0
      * @access public
+     * @return void
     */
    public function wspp_display_custom_field() {
       global $post;

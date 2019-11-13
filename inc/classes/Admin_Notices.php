@@ -13,8 +13,9 @@ class Admin_Notices {
    * @access public
    * @return void
   */
-  public static function show_woocommerce_activation_warning() {
-    add_action('admin_notices', [__CLASS__, 'admin_notice_missing_main_plugin']);
+  public function show_woocommerce_activation_warning() {
+    var_dump($this);
+    add_action('admin_notices', [ $this, 'admin_notice_missing_main_plugin']);
   }
 
   /**
@@ -23,8 +24,8 @@ class Admin_Notices {
    * @access public
    * @return void
   */
-  public static function show_php_version_warning() {
-    add_action('admin_notices', [__CLASS__, 'admin_notice_minimum_php_version']);
+  public function show_php_version_warning() {
+    add_action('admin_notices', [ $this, 'admin_notice_minimum_php_version']);
   }
 
   /**
@@ -32,8 +33,9 @@ class Admin_Notices {
    * woocomerce is not activated
    * @since 1.0.0
    * @access public
+   * @return void
   */
-  public static function admin_notice_missing_main_plugin() {
+  public function admin_notice_missing_main_plugin() {
     if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
 
     $message = sprintf(
@@ -53,8 +55,9 @@ class Admin_Notices {
    *
    * @since 1.0.0
    * @access public
+   * @return void
    */
-  public static function admin_notice_minimum_php_version($minimum_php_version) {
+  public function admin_notice_minimum_php_version($minimum_php_version) {
     if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
 
     $message = sprintf(

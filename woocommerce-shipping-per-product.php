@@ -19,60 +19,49 @@ if(!defined('WSPP_BASE_PATH')) {
 // autoloader
 require_once WSPP_BASE_PATH . 'inc/autoloader.php';
 
+
+const VERSION = '1.0.0';
+
 /**
- * check if Class - Woocommerce_Shipping_Per_Product exists
+ * PHP version
  * @since 1.0.0
+ * @var string php version
 */
+const MINIMUM_PHP_VERSION = '5.6';
+
+// Initialization
+add_action('init', 'wspp_init');
+
+/**
+ * Initialization
+ * @since 1.0.0
+ * @access public
+ * @return void
+*/
+function wspp_init() {
+
+  // load translator
+  load_plugin_textdomain('woocommerce-shipping-per-product');
+
+  // admin notices instance
+  $admin_notices = new \WSPP\Admin_Notices();
+
+  // Check if woocommerce is active
+  if(
+    !in_array( 'woocommerce/woocommerce.php',
+        apply_filters('active_plugins', get_option( 'active_plugins' ) ) )
+  ) $admin_notices->show_woocommerce_activation_warning();
 
 
-  const VERSION = '1.0.0';
+  // Check PHP version
+  if(
+    version_compare(PHP_VERSION, MINIMUM_PHP_VERSION, '<')
+  ) $admin_notices->show_php_version_warning(MINIMUM_PHP_VERSION);
 
-  /**
-   * PHP version
-   * @since 1.0.0
-   * @var string php version
-  */
-  const MINIMUM_PHP_VERSION = '5.6';
+  // Product data options
+  new \WSPP\Product_Data();
 
-  /**
-   * Constructor
-   * @since 1.0.0
-   * @access public
-  */
+  // shiping method
+  include_once WSPP_BASE_PATH . 'inc/shipping-method.php';
 
-  // Initialization
-  add_action('init', 'init');
-
-  /**
-   * Load text domain
-   * @since 1.0.0
-   * @access public
-  */
-  function i18n() {
-  }
-
-  /**
-   * Initialization
-   * @since 1.0.0
-   * @access public
-  */
-  function init() {
-
-    // load translator
-    load_plugin_textdomain('woocommerce-shipping-per-product');
-
-    // Check if woocommerce is active
-    if(
-      !in_array( 'woocommerce/woocommerce.php',
-          apply_filters('active_plugins', get_option( 'active_plugins' ) ) )
-    ) \WSPP\Admin_Notices::show_woocommerce_activation_warning();
-
-
-    // Check PHP version
-    if(
-      version_compare(PHP_VERSION, MINIMUM_PHP_VERSION, '<')
-    ) \WSPP\Admin_Notices::show_php_version_warning(MINIMUM_PHP_VERSION);
-
-    // Product data options
-    new \WSPP\Product_Data();
-  }
+}
