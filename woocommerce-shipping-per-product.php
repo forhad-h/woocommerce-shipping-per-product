@@ -2,7 +2,7 @@
 /*
 Plugin Name: Woocommerce Shipping Per Product
 Plugin URI: https://github.com/forhad-h/woocommerce-shipping-per-product
-Description: Add a shipping option in Woocommerce where user can input standard shipping price.
+Description: Woocommerce Standard flat rate Shipping method Per Product
 Author: Forhad Hosain
 Version: 1.0.0
 Author URI: https://github.com/forhad-h/

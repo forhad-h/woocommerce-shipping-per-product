@@ -1,4 +1,4 @@
-### Add a shipping option in Woocommerce where user can input standard shipping price.
+### Woocommerce Standard flat rate Shipping method Per Product
 
 ### reference
 - https://docs.woocommerce.com/document/create-a-plugin/
