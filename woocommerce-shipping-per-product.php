@@ -4,7 +4,7 @@ Plugin Name: Woocommerce Shipping Per Product
 Plugin URI: https://github.com/forhad-h/woocommerce-shipping-per-product
 Description: Woocommerce Standard flat rate Shipping method Per Product
 Author: Forhad Hosain
-Version: 1.0.0
+Version: 1.1.1
 Author URI: https://github.com/forhad-h/
 Text Domain: woocommerce-shipping-per-product
 */
@@ -20,7 +20,7 @@ if(!defined('WSPP_BASE_PATH')) {
 require_once WSPP_BASE_PATH . 'inc/autoloader.php';
 
 
-const VERSION = '1.0.0';
+const VERSION = '1.1.1';
 
 /**
  * PHP version

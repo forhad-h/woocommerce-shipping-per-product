@@ -29,7 +29,6 @@ function wspp_shipping_method_init() {
          * @var number shipping cost
         */
         $shipping_cost = count(get_shipping_cost_arr()) > 0 ? max(get_shipping_cost_arr()) : 0;
-
         $this->id = 'wc_standard_shipping_method';
         $this->method_title = 'Standard Shipping';
         $this->method_description = 'Standard flat rate shipping per product';
@@ -85,7 +84,6 @@ add_action( 'woocommerce_shipping_init', 'wspp_shipping_method_init');
 function add_wc_standard_shipping_method($methods) {
 
   $methods['wc_standard_shipping_method'] = 'WC_Standard_Shipping_Method';
-
   return $methods;
 }
 add_filter('woocommerce_shipping_methods', 'add_wc_standard_shipping_method');
@@ -95,12 +93,14 @@ function get_shipping_cost_arr() {
 
   if(!$woocommerce->cart) return [];
   $items = $woocommerce->cart->get_cart();
-  $cost_arr = [];
 
+  $cost_arr = [];
   foreach($items as $item => $values) {
     $product = wc_get_product( $values[ 'data' ]->get_id() );
-    $cost = ( float ) $product->get_meta( 'wspp_standard_shipping_cost' );
+    $cost = ( float ) get_post_meta( $values['product_id'], 'wspp_standard_shipping_cost', true );
     array_push($cost_arr, $cost);
   }
+
+
   return $cost_arr;
 }

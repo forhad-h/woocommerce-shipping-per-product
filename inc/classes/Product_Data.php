@@ -22,7 +22,6 @@ class Product_Data {
     // save input filed value
     add_action( 'woocommerce_process_product_meta',
                 [$this, 'wspp_save_shipping_cost'] );
-
   }
 
   /**
@@ -35,10 +34,11 @@ class Product_Data {
      $args = array(
      'id' => 'wspp_standard_shipping_cost',
      'type' => 'number',
-     'label' => __( 'Standard Shipping Rate', 'wspp' ),
+     'label' => __( 'Standard Shipping Rate', 'woocommerce-shipping-per-product' ),
      'class' => 'wspp_standard_shipping_cost',
      'desc_tip' => true,
-     'description' => __( 'Enter the standard shipping rate', 'wspp' ),
+     'placeholder' => "e.g. 20.00",
+     'description' => __( 'Enter the standard shipping rate', 'woocommerce-shipping-per-product' ),
      'custom_attributes' => [
            'step' => 'any',
            'min' => 0,
@@ -48,7 +48,7 @@ class Product_Data {
    }
 
    /**
-    * Save product data
+    * Save product data for simple product
     * @since 1.0.0
     * @access public
     * @return void
@@ -59,6 +59,5 @@ class Product_Data {
       $product->update_meta_data( 'wspp_standard_shipping_cost', sanitize_text_field( $cost ) );
       $product->save();
    }
-
 
 }
